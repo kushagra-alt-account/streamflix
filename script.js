@@ -51,3 +51,38 @@ function setRandomGif() {
 }
 
 window.onload = setRandomGif;
+function searchForMovies() {
+  var searchText = document.getElementById('search-input').value.trim();
+  if (searchText length > 0) {
+    var url = 'https://api.themoviedb.org/3/search/multi?api_key=e6cd252a87b876cd536ccfd719f4483f&query=' + encodeURIComponent(searchText);
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        var movieContainer = document.getElementById('movie-container');
+        movieContainer.innerHTML = '';
+        if (data.results.length > 0) {
+          data.results.forEach(function(movie) {
+            var movieItem = createMovieItem(movie);
+            movieContainer.appendChild(movieItem);
+          });
+        } else {
+          movieContainer.innerHTML = '<h2>No movies or shows found.</h2>';
+        }
+      })
+      .catch(function() {
+        document.getElementById('movie-container').innerHTML = '<h2>Error fetching movies or shows.</h2>';
+      });
+  }
+}
+
+document.getElementById('search-button').addEventListener('click', searchForMovies);
+
+function createMovieItem(movie) {
+  var movieItem = document.createElement('div');
+  movieItem.classList.add('movie-item');
+  var title = movie.title || movie.name;
+  movieItem.innerHTML = '<h3>' + title + '</h3>';
+  return movieItem;
+}
