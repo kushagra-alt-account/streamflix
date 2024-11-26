@@ -16,3 +16,33 @@ body {
   background-size: cover;
   z-index: -1;
 }
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 600px;
+}
+input, button {
+  font-size: 20px;
+  font-family: 'VT323', monospace;
+}
+input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  color: #0f0;
+  background-color: #000;
+  border: 2px solid #0f0;
+  outline: none;
+}
+input::placeholder {
+  color: #0f0;
+}
+button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #0f0;
+  border: 2px solid #0f0;
+  cursor: pointer;
+}
