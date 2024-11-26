@@ -1,3 +1,15 @@
+// Get elements from the HTML
+var searchInput = document.getElementById('search-input');
+var searchButton = document.getElementById('search-button');
+var movieContainer = document.getElementById('movie-container');
+var videoContainer = document.getElementById('video-container');
+var videoPlayer = document.getElementById('video-player');
+var closeVideoButton = document.getElementById('close-video');
+
+// Sound effect for button clicks
+var clickSound = new Audio('click.mp3');
+
+// Updated GIF links
 var gifLinks = [
   "./gif/1152147517169814440.gif",
   "./gif/1152147517169814442.gif",
@@ -45,44 +57,109 @@ var gifLinks = [
   "./gif/1152839429392847293.gif"
 ];
 
+// Function to set a random GIF as the background
 function setRandomGif() {
   var randomGif = gifLinks[Math.floor(Math.random() * gifLinks.length)];
-  document.getElementById('gif-background').style.backgroundImage = 'url(' + randomGif + ')';
+  var gifBackground = document.getElementById('gif-background');
+  gifBackground.style.backgroundImage = `url(${randomGif})`;
 }
 
-window.onload = setRandomGif;
+// Set a new GIF when the page is loaded
+window.onload = function () {
+  setRandomGif();
+};
+
+// Search on Enter Key
+searchInput.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
+    searchForMovies();
+  }
+});
+
+// When user types in search box, play click sound
+searchInput.addEventListener('input', function () {
+  clickSound.currentTime = 0; // Reset the audio to the start
+  clickSound.play();
+});
+
+// When user clicks search button, search for movies
+searchButton.addEventListener('click', function () {
+  searchForMovies();
+});
+
+// When user clicks close video button, hide video
+closeVideoButton.addEventListener('click', function () {
+  hideVideo();
+});
+
+// Function to search for movies
 function searchForMovies() {
-  var searchText = document.getElementById('search-input').value.trim();
-  if (searchText length > 0) {
+  var searchText = searchInput.value.trim();
+
+  if (searchText.length > 0) {
     var url = 'https://api.themoviedb.org/3/search/multi?api_key=e6cd252a87b876cd536ccfd719f4483f&query=' + encodeURIComponent(searchText);
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        var movieContainer = document.getElementById('movie-container');
-        movieContainer.innerHTML = '';
-        if (data.results.length > 0) {
-          data.results.forEach(function(movie) {
-            var movieItem = createMovieItem(movie);
-            movieContainer.appendChild(movieItem);
-          });
-        } else {
-          movieContainer.innerHTML = '<h2>No movies or shows found.</h2>';
-        }
-      })
-      .catch(function() {
-        document.getElementById('movie-container').innerHTML = '<h2>Error fetching movies or shows.</h2>';
-      });
+    fetchMovies(url);
   }
 }
 
-document.getElementById('search-button').addEventListener('click', searchForMovies);
+// Function to fetch movies
+function fetchMovies(url) {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.results && data.results.length > 0) {
+        movieContainer.innerHTML = '';
+        data.results.forEach(movie => {
+          var movieItem = createMovieItem(movie);
+          movieContainer.appendChild(movieItem);
+        });
+      } else {
+        movieContainer.innerHTML = '<h2>No movies or shows found.</h2>';
+      }
+    })
+    .catch(() => {
+      movieContainer.innerHTML = '<h2>Error fetching movies or shows.</h2>';
+    });
+}
 
+// Function to create a movie item
 function createMovieItem(movie) {
   var movieItem = document.createElement('div');
-  movieItem.classList.add('movie-item');
-  var title = movie.title || movie.name;
-  movieItem.innerHTML = '<h3>' + title + '</h3>';
+  movieItem.className = 'movie-item';
+
+  var poster = document.createElement('img');
+  poster.src = movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'placeholder.png';
+  poster.alt = movie.title || movie.name || 'Movie';
+
+  var title = document.createElement('h3');
+  title.textContent = movie.title || movie.name || 'Movie';
+
+  var watchButton = document.createElement('button');
+  watchButton.textContent = 'Watch';
+  watchButton.addEventListener('click', function () {
+    playMovie(movie);
+  });
+
+  movieItem.appendChild(poster);
+  movieItem.appendChild(title);
+  movieItem.appendChild(watchButton);
+
   return movieItem;
+}
+
+// Function to play the selected movie
+function playMovie(movie) {
+  var movieId = movie.id;
+  var mediaType = movie.media_type || 'movie';
+  var url = `https://streamfr.onrender.com/api/player/${movieId}`;
+  if (mediaType === 'tv') url += '?series=1';
+
+  videoPlayer.src = url;
+  videoContainer.style.display = 'flex';
+}
+
+// Function to hide the video player
+function hideVideo() {
+  videoPlayer.src = '';
+  videoContainer.style.display = 'none';
 }

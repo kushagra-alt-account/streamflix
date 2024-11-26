@@ -1,10 +1,13 @@
+/* General Body Styles */
 body {
   font-family: 'VT323', monospace;
   background-color: #000;
-  color: #0f0;
+  color: #00ff00;
   margin: 0;
   padding: 0;
 }
+
+/* GIF Background */
 #gif-background {
   position: fixed;
   top: 0;
@@ -16,6 +19,26 @@ body {
   background-size: cover;
   z-index: -1;
 }
+
+/* Main Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+h1 {
+  font-size: 48px;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+  margin-bottom: 20px;
+}
+
+/* Search Box Styles */
 .search-box {
   display: flex;
   justify-content: center;
@@ -24,25 +47,86 @@ body {
   width: 100%;
   max-width: 600px;
 }
+
+/* Input and Button Styles */
 input, button {
   font-size: 20px;
   font-family: 'VT323', monospace;
 }
+
 input {
   flex-grow: 1;
   padding: 10px 15px;
-  color: #0f0;
+  color: #00ff00;
   background-color: #000;
-  border: 2px solid #0f0;
+  border: 2px solid #00ff00;
   outline: none;
+  border-right: 2px solid #00ff00;
 }
+
 input::placeholder {
-  color: #0f0;
+  color: #00ff00;
 }
+
 button {
   padding: 10px 15px;
   background-color: #000;
-  color: #0f0;
-  border: 2px solid #0f0;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  cursor: pointer;
+}
+
+/* Movie Container Styles */
+#movie-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+  width: 100%;
+}
+
+/* Movie Item Styles */
+.movie-item {
+  background-color: #000;
+  color: #00ff00;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 5px #00ff00;
+}
+
+.movie-item img {
+  width: 100%;
+  height: auto;
+}
+
+/* Video Player Container Styles */
+#video-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Video Player Styles */
+#video-player {
+  width: 80%;
+  height: 80%;
+  background-color: #000;
+  border: 2px solid #00ff00;
+}
+
+/* Close Video Button Styles */
+#close-video {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #000;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 8px 16px;
   cursor: pointer;
 }

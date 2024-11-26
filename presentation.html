@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREAMIT Presentation</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #121212;
+            color: #00ff00;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .presentation {
+            width: 80%;
+            max-width: 1000px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff00;
+            padding: 20px;
+            position: relative;
+        }
+
+        #gif-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide h1, .slide h2, .slide p {
+            margin: 10px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            background-color: #121212;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+        }
+
+        pre {
+            background-color: #111;
+            padding: 10px;
+            border: 1px solid #00ff00;
+            overflow: auto;
+            width: 100%;
+            max-width: 800px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        code {
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div id="gif-background"></div>
+
+    <div class="presentation">
+        <!-- Slide 1: Introduction -->
+        <div class="slide active" id="slide-1">
+            <h1>STREAMIT</h1>
+            <h2>Your Ultimate Movie Streaming Website</h2>
+            <p>Visit us at: <a href="https://kushagra-alt-account.github.io/streamit/" target="_blank">https://kushagra-alt-account.github.io/streamit/</a></p>
+        </div>
+        <!-- Slide 2: Overview -->
+        <div class="slide" id="slide-2">
+            <h2>Overview</h2>
+            <p>STREAMIT is a modern web application designed to search and stream movies. It integrates various web technologies to create a dynamic and engaging user experience.</p>
+        </div>
+        <!-- Slide 3: Project Structure -->
+        <div class="slide" id="slide-3">
+            <h2>Project Structure</h2>
+            <p>STREAMIT is structured using HTML for the layout, CSS for styling, and JavaScript for functionality. This separation of concerns ensures a clean and maintainable codebase.</p>
+        </div>
+        <!-- Slide 4: HTML Elements -->
+        <div class="slide" id="slide-4">
+            <h2>HTML Elements</h2>
+            <p>The core HTML elements include a search box for movie queries, a container to display movie results, and an iframe for streaming videos.</p>
+        </div>
+        <!-- Slide 5: CSS Styling -->
+        <div class="slide" id="slide-5">
+            <h2>CSS Styling</h2>
+            <p>The CSS styling follows a retro theme with neon green text on a black background. Key elements are styled with flexbox to ensure a responsive layout.</p>
+        </div>
+        <!-- Slide 6: JavaScript Integration -->
+        <div class="slide" id="slide-6">
+            <h2>JavaScript Integration</h2>
+            <p>JavaScript is used to add interactivity. It includes event listeners for user actions, fetch requests to retrieve movie data from an API, and dynamic DOM manipulation to display results.</p>
+        </div>
+        <!-- Slide 7: API Interaction -->
+        <div class="slide" id="slide-7">
+            <h2>API Interaction</h2>
+            <p>STREAMIT uses The Movie Database (TMDb) API to search for movies and TV shows. The fetched data is then processed and displayed on the website.</p>
+            <pre><code>
+// TMDb API key and URL
+const API_KEY = 'e6cd252a87b876cd536ccfd719f4483f';
+const API_URL = 'https://api.themoviedb.org/3/search/multi?api_key=' + API_KEY + '&query=';
+
+// Fetch movies function
+function fetchMovies(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            displayMovies(data.results);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// API call example
+fetchMovies(API_URL + 'Avengers');
+            </code></pre>
+        </div>
+        <!-- Slide 8: Dynamic Content -->
+        <div class="slide" id="slide-8">
+            <h2>Dynamic Content</h2>
+            <p>JavaScript dynamically creates movie items with details fetched from the API. Users can click on a movie to watch its trailer or more information directly on the site.</p>
+        </div>
+        <!-- Slide 9: Responsive Design -->
+        <div class="slide" id="slide-9">
+            <h2>Responsive Design</h2>
+            <p>The site is fully responsive, adapting to different screen sizes and devices. This ensures a seamless experience whether users are on a desktop, tablet, or mobile phone.</p>
+        </div>
+        <!-- Slide 10: Video Provider -->
+        <div class="slide" id="slide-10">
+            <h2>Video Provider</h2>
+            <p>STREAMIT uses a custom video streaming service provided by Streamfr, hosted on Render. This allows seamless integration and playback of video content directly within the application.</p>
+            <pre><code>
+// Video player setup
+function playMovie(movie) {
+    var movieId = movie.id;
+    var url = `https://streamfr.onrender.com/api/player/${movieId}`;
+    videoPlayer.src = url;
+    videoContainer.style.display = 'flex';
+}
+            </code></pre>
+        </div>
+        <!-- Slide 11: Conclusion -->
+        <div class="slide" id="slide-11">
+            <h2>Conclusion</h2>
+            <p>STREAMIT showcases the integration of various web technologies to create a seamless and engaging movie streaming experience. Thank you for your attention!</p>
+        </div>
+        <!-- Slide 12: Team Members -->
+        <div class="slide" id="slide-12">
+            <h2>Team Members</h2>
+            <ul>
+                <li>Kushagra (SAP ID:590014177)</li>
+                <li>Arpit (SAP ID:590012087)</li>
+                <li>Apekshit (SAP ID:590015631)</li>
+                <li>Karan (SAP ID:590015316)</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <button id="prev-slide">Previous</button>
+            <button id="next-slide">Next</button>
+          </div>
+        </div>
+    
+        <script>
+            const gifLinks = [
+                "./gif/1152147517169814440.gif",
+                "./gif/1152147517169814442.gif",
+                "./gif/1152147517169814445.gif",
+                "./gif/1152147517169814449.gif",
+                "./gif/1152147517169814451.gif",
+                "./gif/1152147517169814454.gif",
+                "./gif/1152147517169814456.gif",
+                "./gif/1152147517169814458.gif",
+                "./gif/1152147517169814459.gif",
+                "./gif/1152147517169814460.gif",
+                "./gif/1152147517169814461.gif",
+                "./gif/1152147517169814462.gif",
+                "./gif/1152147517169814467.gif",
+                "./gif/1152147517169814469.gif",
+                "./gif/1152147517169814471.gif",
+                "./gif/1152147517169814473.gif",
+                "./gif/1152147517169814474.gif",
+                "./gif/1152147517169814477.gif",
+                "./gif/1152147517169814482.gif",
+                "./gif/1152147517169814487.gif",
+                "./gif/1152147517169814489.gif",
+                "./gif/1152147517169814491.gif",
+                "./gif/1152147517169814493.gif",
+                "./gif/1152147517169814505.gif",
+                "./gif/1152147517169814508.gif",
+                "./gif/1152147517169814510.gif",
+                "./gif/1152147517169814511.gif",
+                "./gif/1152147517169814513.gif",
+                "./gif/1152147517169814516.gif",
+                "./gif/1152147517169814520.gif",
+                "./gif/1152147517169814522.gif",
+                "./gif/1152147517169814529.gif",
+                "./gif/1152147517169814533.gif",
+                "./gif/1152147517169814535.gif",
+                "./gif/1152147517169814541.gif",
+                "./gif/1152147517169814543.gif",
+                "./gif/1152147517169814544.gif",
+                "./gif/1152147517169814548.gif",
+                "./gif/1152147517169814550.gif",
+                "./gif/1152147517169814552.gif",
+                "./gif/1152147517169814896.gif",
+                "./gif/1152147517169814898.gif",
+                "./gif/1152147517169814899.gif",
+                "./gif/1152839429392847293.gif"
+            ];
+    
+            function setRandomGif() {
+                var randomGif = gifLinks[Math.floor(Math.random() * gifLinks.length)];
+                var gifBackground = document.getElementById('gif-background');
+                gifBackground.style.backgroundImage = `url(${randomGif})`;
+            }
+    
+            window.onload = function () {
+                setRandomGif();
+            };
+    
+            let currentSlide = 1;
+            const totalSlides = 12;
+    
+            document.getElementById('next-slide').addEventListener('click', () => {
+                changeSlide(1);
+                setRandomGif();
+            });
+    
+            document.getElementById('prev-slide').addEventListener('click', () => {
+                changeSlide(-1);
+            });
+    
+            function changeSlide(direction) {
+                document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+                currentSlide = (currentSlide + direction + totalSlides - 1) % totalSlides + 1;
+                document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            }
+        </script>
+    </body>
+    </html>
+    
